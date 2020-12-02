@@ -21,9 +21,11 @@ fn main() {
     println!("answer: {}", valid_passwords);
 }
 
-fn is_valid_entry((min, max, letter, password): &(usize, usize, char, String)) -> bool {
-    let count = password.matches(*letter).count();
+fn is_valid_entry((pos1, pos2, letter, password): &(usize, usize, char, String)) -> bool {
+    let password_chars = password.chars().collect::<Vec<_>>();
 
-    count >= *min &&
-    count <= *max
+    let pos1_has_letter = password_chars[*pos1 - 1] == *letter;
+    let pos2_has_letter = password_chars[*pos2 - 1] == *letter;
+
+    pos1_has_letter ^ pos2_has_letter
 }
